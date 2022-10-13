@@ -16,9 +16,8 @@ function sanitizaPost($array): bool {
         // Verifica se elas são diferentes
         if ($stringCopia != $strOriginal) {
             return true;
-            break;
         }
-    return false;
     }
+    return false;
 }
 ?>

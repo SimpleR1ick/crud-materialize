@@ -25,36 +25,36 @@ if (isset($_POST)) {
     } else {
         // Função de registro
         if (isset($_POST['btn-cadastrar'])) {
-            cadastrarUsuario();
+            cadastrarUsuario($conn);
 		}
         // Função de alteração
         else if (isset($_POST['btn-editar'])) {
-            editarUsuario();
+            editarUsuario($conn);
 		}
         // Função de exclusão
         else if(isset($_POST['btn-deletar'])) {
-            deletarUsuario();
+            deletarUsuario($conn);
 
 		}
     }
 }
 // Encerra a conexão
-mysqli_close(CONEXAO);
+mysqli_close($conn);
 
 /**
  * Função para cadastrar um usúario no banco de dados
  * 
  * @author Henrique Dalmagro
  */
-function cadastrarUsuario(): void {
-    $nome = mysqli_escape_string(CONEXAO, $_POST['nome']);
-	$sobrenome = mysqli_escape_string(CONEXAO, $_POST['sobrenome']);
-	$email = mysqli_escape_string(CONEXAO, $_POST['email']);
-	$idade = mysqli_escape_string(CONEXAO, $_POST['idade']);
+function cadastrarUsuario($conn): void {
+    $nome = mysqli_escape_string($conn, $_POST['nome']);
+	$sobrenome = mysqli_escape_string($conn, $_POST['sobrenome']);
+	$email = mysqli_escape_string($conn, $_POST['email']);
+	$idade = mysqli_escape_string($conn, $_POST['idade']);
 	
 	$sql = "INSERT INTO clientes (nome, sobrenome, email, idade) VALUES ('$nome', '$sobrenome', '$email', $idade)";
  
-	if(mysqli_query(CONEXAO, $sql)) {
+	if(mysqli_query($conn, $sql)) {
 		$_SESSION['mensagem'] = "Cadastro com sucesso!";
 		header('Location: ../crud_index.php');
         
@@ -69,16 +69,16 @@ function cadastrarUsuario(): void {
  * 
  * @author Henrique Dalmagro
  */
-function editarUsuario(): void {
-    $id = mysqli_real_escape_string(CONEXAO, $_POST['id']);
-	$nome = mysqli_escape_string(CONEXAO, $_POST['nome']);
-	$sobrenome = mysqli_escape_string(CONEXAO, $_POST['sobrenome']);
-	$email = mysqli_escape_string(CONEXAO, $_POST['email']);
-	$idade = mysqli_escape_string(CONEXAO, $_POST['idade']);
+function editarUsuario($conn): void {
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+	$nome = mysqli_escape_string($conn, $_POST['nome']);
+	$sobrenome = mysqli_escape_string($conn, $_POST['sobrenome']);
+	$email = mysqli_escape_string($conn, $_POST['email']);
+	$idade = mysqli_escape_string($conn, $_POST['idade']);
 
 	$sql = "UPDATE clientes SET nome ='$nome', sobrenome ='$sobrenome', email ='$email', idade ='$idade' WHERE id ='$id'";
 
-	if (mysqli_query(CONEXAO, $sql)) {
+	if (mysqli_query($conn, $sql)) {
 		$_SESSION['mensagem'] = "Atualizado com sucesso!";
 		header('Location: ../crud_index.php');
 
@@ -93,12 +93,12 @@ function editarUsuario(): void {
  * 
  * @author Henrique Dalmagro
  */
-function deletarUsuario(): void {
-    $id = mysqli_escape_string(CONEXAO, $_POST['id']);
+function deletarUsuario($conn): void {
+    $id = mysqli_escape_string($conn, $_POST['id']);
 	
 	$sql = "DELETE FROM clientes WHERE id = $id";
 	
-	if (mysqli_query(CONEXAO, $sql)) {
+	if (mysqli_query($conn, $sql)) {
 		$_SESSION['mensagem'] = "Excluido com sucesso!";
 		header('Location: ../crud_index.php');
 

@@ -25,10 +25,10 @@ include_once 'includes/mensagem.php';
 			<tbody>
 				<?php
 				$sql = "SELECT id, nome, sobrenome, email, idade FROM clientes";
-				$resultado = mysqli_query(CONEXAO, $sql);
+				$resultado = mysqli_query($conn, $sql);
 
 				// Encarra a conexão
-				mysqli_close(CONEXAO);
+				mysqli_close($conn);
 
 				if (mysqli_num_rows($resultado) == 0): ?>
 					<tr>

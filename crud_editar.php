@@ -11,13 +11,13 @@ if (isset($_GET)) {
 	$id = $_GET['id'];
 
 	// Prepara e executa uma query no banco de dados
-	$resultado = mysqli_query(CONEXAO, "SELECT * FROM clientes WHERE id = '$id'");
+	$resultado = mysqli_query($conn, "SELECT * FROM clientes WHERE id = '$id'");
 
 	// Transforma o resultado em um array assossiativo
 	$dados = mysqli_fetch_array($resultado);
 }
 // Encarra a conexão
-mysqli_close(CONEXAO);
+mysqli_close($conn);
 ?>
 
 <div class="row">
